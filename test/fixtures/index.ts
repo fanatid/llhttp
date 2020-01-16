@@ -38,11 +38,11 @@ const fixtures = new Fixture({
 
 const cache: Map<any, ICompilerResult> = new Map();
 
-export function build(llparse: LLParse, node: any, outFile: string,
-                      options: IFixtureBuildOptions = {},
-                      ty: TestType = 'none'): FixtureResult {
+export async function build(llparse: LLParse, node: any, outFile: string,
+                            options: IFixtureBuildOptions = {},
+                            ty: TestType = 'none'): Promise<FixtureResult> {
   const dot = new Dot();
-  fs.writeFileSync(path.join(BUILD_DIR, outFile + '.dot'),
+  fs.promises.writeFile(path.join(BUILD_DIR, outFile + '.dot'),
     dot.build(node));
 
   let artifacts: ICompilerResult;
